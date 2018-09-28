@@ -1,0 +1,41 @@
+// Configurable lsc plugin tool
+import { BabelCompileAction, BabelCompileActionType } from './BabelCompiler'
+import { ToolImplementation } from '../ToolImplementation'
+import type { ToolMetadata, ToolData } from '../Types'
+
+export class LscBabelPluginTool extends ToolImplementation:
+  // Lsc babel plugin
+  lscPlugin = null
+  // Lsc semver
+  lscVersion = "unknown"
+  // Lsc compiler options metadata
+  optionsMetadata = {}
+  // Lsc config options
+  options = {}
+
+  getMetadata(): ToolMetadata -/>
+    {
+      name: `LightScript Compiler Plugin: v${this.lscVersion}`
+      version: this.lscVersion
+      inputActionType: BabelCompileActionType
+      outputActionType: BabelCompileActionType
+      options: this.optionsMetadata
+    }
+
+  getData(): ToolData -/>
+    {
+      id: this.id
+      parentId: this.parentToolId
+      options: this.options
+    }
+
+  apply(inputAction: BabelCompileAction) -/>
+    inputAction.addPlugin(this.lscPlugin, this.options)
+    inputAction
+
+// Dependency injection from external module
+export wrapLscPlugin({plugin, version, options}) ->
+  return class RealLscPluginTool extends LscBabelPluginTool:
+    lscPlugin = plugin
+    lscVersion = version
+    optionsMetadata = options

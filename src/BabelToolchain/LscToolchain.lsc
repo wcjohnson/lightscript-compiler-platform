@@ -1,0 +1,53 @@
+// Configurable lsc plugin tool
+import { Toolchain } from '../ToolImplementation'
+import type { ToolMetadata, ToolData, ToolSource, ConfigurationOptions } from '../Types'
+
+type ToolchainVersion = {
+  name: string,
+  babel: ToolSource,
+  lscPlugin: ?ToolSource,
+  lscPreset: ?ToolSource
+};
+
+export class LscToolchain extends Toolchain:
+  // List of available toolchain versions
+  versions: [ToolchainVersion] = []
+  optionsMetadata: ConfigurationOptions = {}
+
+  versionsToOptions(): void -> {
+    description: "Compiler version"
+    valueType: "options"
+    options: [...for elem v in this.versions: [v.name]]
+  }
+
+  getMetadata(): ToolMetadata -/>
+    {
+      name: 'LightScript Toolchain'
+      options: this.optionsMetadata
+    }
+
+  setOptions(opts) -/>
+    version = if not opts?.version:
+      // Latest version
+      this.versions[this.versions.length - 1]
+    else:
+      this.versions.find(x -> x.version == opts.version)
+    if not version: throw new Error("invalid compiler version")
+
+    super.setOptions({
+      tools: [
+        { source: version.babel, options: opts.tools?[0]?.options }
+        {
+          source: if opts.usePreset: version.lscPreset else: version.lscPlugin
+          options: opts.tools?[1]?.options
+        }
+      ]
+    })
+
+    return
+
+// Dependency injection from external module
+export lscToolchains({versions}) ->
+  return class RealLscToolchain extends LscToolchain:
+    versions = versions
+    optionsMetadata = { version: this.versionsToOptions() }

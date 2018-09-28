@@ -1,0 +1,37 @@
+export type ActionType = {
+  name: string
+};
+
+export type ToolSource = {
+  type: string,
+  url: ?string,
+  module: ?any
+};
+
+export type ToolMetadata = {
+  name: string,
+  source: ToolSource,
+  inputActionType: ActionType,
+  outputActionType: ActionType,
+  options: {}
+};
+
+export type ToolData = {
+  id: string,
+  parentId: string,
+  source: ToolSource,
+  options: {}
+};
+
+export type ToolModification = {
+  action: string
+};
+
+export type ConfigurationOption = {
+  description: string,
+  valueType: "boolean" | "json" | "string" | "options",
+  defaultValue: ?any,
+  options: ?[any]
+};
+
+export type ConfigurationOptions = { [string]: ConfigurationOption };

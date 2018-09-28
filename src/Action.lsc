@@ -1,0 +1,26 @@
+import { Id, Platform } from './Platform'
+import type { ActionType } from './Types'
+
+export NullActionType: ActionType = {
+  name: 'NullAction'
+}
+
+// An Action is something that can be run on an input producing an output.
+// The Action is asynchronous and may refer to a process taking place in
+// another worker or process.
+export class Action extends Id:
+  constructor(platform: Platform, id) ->
+    super("action", id)
+    this.platform = platform
+
+  // Get the type of the action.
+  getType(): ActionType -> NullActionType
+
+  // Execute the action. `input` must be a json-compatible value appropriate
+  // to the type of action. Returns a json-compatible result or throws.
+  // eslint-disable-next-line no-unused-vars
+  run(input) -/>
+    return null
+
+  // Dispose the action, freeing all resources associated with it
+  dispose(): void -> return

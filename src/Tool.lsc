@@ -1,0 +1,30 @@
+import { Id, Platform } from './Platform'
+import { createSubject } from '@ormojo/fobs'
+
+import type { Action, ToolData, ToolMetadata, ToolModification} from './Types'
+
+// A Tool is something that takes an Action and modifies it, giving another
+// Action.
+export class Tool extends Id:
+  constructor(platform: Platform, id) ->
+    super("tool", id)
+    this.platform = platform
+
+  // Observable triggered when the structure of the toolchain changes.
+  structureChanged$ = createSubject()
+
+  // Observable triggered when the options of this tool change.
+  optionsChanged$ = createSubject()
+
+  // Get metadata for this tool.
+  getMetadata(): ToolMetadata -/> null
+
+  // Get data for this tool
+  getData(): ToolData -/> null
+
+  // Set this tool's options
+  setOptions(opts) -/> null
+
+  // Called to produce the Action for this tool given an input action.
+  // eslint-disable-next-line no-unused-vars
+  apply(inputAction: Action) -/> null

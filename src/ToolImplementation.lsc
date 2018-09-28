@@ -1,0 +1,56 @@
+import { Tool } from './Tool'
+import { Action } from './Action'
+
+import type { ToolModification } from './Types'
+
+// Represents the "implementation" side of a tool, which may be running in
+// e.g. a Web Worker
+export class ToolImplementation extends Tool:
+  constructor(platform, source, id) ->
+    super(platform, id)
+    this.source = source
+
+  // This tool may be a child of some other tool.
+  parentToolId = null
+
+  // Notify parents of structural change
+  _structureDidChange(): void ->
+    this.structureChanged$.next({})
+    if this.parentToolId:
+      this.platform.getObject(this.parentToolId)?._structureDidChange()
+
+// Represents the "implementation" side of an action
+export class ActionImplementation extends Action {}
+
+// A Toolchain encapsulates a series of child tools
+export class Toolchain extends ToolImplementation:
+  tools = []
+
+  getMetadata() -/>
+    {
+      name: 'Toolchain'
+      options: {}
+    }
+
+  setOptions(opts) -/>
+    if not Array.isArray(opts?.tools):
+      throw new Error("invalid toolchain options")
+
+    // Dispose current tools
+    for elem child in this.tools: child.dispose()
+
+    // Conjure new tools in parallel
+    this.tools = <- [...for elem spec in opts.tools:
+      [this.platform.createTool(spec)]
+    ]
+
+    // Notify that structure has changed
+    this._structureDidChange()
+
+    return
+
+  apply(inputAction: Action) -/>
+    let currentAction = inputAction
+    for elem child in this.tools:
+      now currentAction <- child.apply(currentAction)
+    currentAction

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`load remote compiler platform 1`] = `"class C {}"`;
+
+exports[`load toolchain 1`] = `
+"function f() {
+  return 1;
+}"
+`;

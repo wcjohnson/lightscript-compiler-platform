@@ -1,0 +1,21 @@
+import SystemJS from 'systemjs'
+import { Platform } from './Platform'
+import { Toolchain } from './ToolImplementation'
+import toolAPI from './ToolAPI'
+
+toolClassMappers = {
+  toolchain: -> Promise.resolve(Toolchain)
+  remote: (opts) -/>
+    mod <- SystemJS.import(opts.url)
+    mod.getToolImplementation(toolAPI)
+}
+
+// Platform that loads modules into the JS runtime where the platform
+// resides. Suitable for use in worker, browser, or node.
+export class InPlacePlatform extends Platform:
+  createTool(spec) -/>
+    clazz <- toolClassMappers[spec.source.type](spec.source)
+    tool = new clazz(this, spec.source)
+    <- tool.setOptions(spec.options)
+    this.putObject(tool.id, tool)
+    tool

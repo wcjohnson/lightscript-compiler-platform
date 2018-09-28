@@ -1,0 +1,49 @@
+import { InPlacePlatform } from '../..'
+
+test! "load remote compiler platform", -/>
+  p = new InPlacePlatform()
+  t <- p.createTool({
+    source: {
+      type: 'remote'
+      url: 'https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js'
+    }
+  })
+  act <- t.apply(null)
+
+  rst <- act.run({
+    code: `
+      class C {}
+    `
+  })
+  expect(rst.code).toMatchSnapshot()
+
+test! "load toolchain", -/>
+  p = new InPlacePlatform()
+  t <- p.createTool({
+    source: { type: 'toolchain' }
+    options: {
+      tools: [
+        // babel
+        {
+          source: {
+            type: 'remote'
+            url: 'https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js'
+          }
+        }
+        // lsc plugin
+        {
+          source: {
+            type: 'remote'
+            url: 'https://wcjohnson.github.io/lightscript-compiler/modules/compiler/4.0.0-alpha.12.min.js'
+          }
+        }
+      ]
+    }
+  })
+  act <- t.apply(null)
+  rst <- act.run({
+    code: `
+      f() -> 1
+    `
+  })
+  expect(rst.code).toMatchSnapshot()

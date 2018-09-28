@@ -1,0 +1,28 @@
+import cuid from 'cuid'
+
+import type { ToolSource } from './Types'
+
+// API is designed for possible use in a web worker or other environment
+// that can only be reached by serializable data. Therefore all options
+// and return values are plain JSON elements.
+
+// Class of uniquely identifiable objects. In the event that these objects
+// are running in a web worker or another process, this id will be used
+// to map communications back and forth between the processes.
+export class Id:
+  constructor(type: string, id: ?string) ->
+    this.id = id or type + '_' + cuid()
+
+// The Platform tracks objects and can retrieve them by id.
+export class Platform:
+  allObjects = Object.create(null)
+
+  putObject(id, obj): void -> this.allObjects[id] = obj
+  getObject(id): Id -> this.allObjects[id]
+
+  // Dispose of this platform and all objects in it, freeing resources.
+  dispose(): void -> return
+
+  // Create a tool
+  // eslint-disable-next-line no-unused-vars
+  createTool(spec: ToolSource) -/> null

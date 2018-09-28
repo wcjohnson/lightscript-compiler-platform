@@ -1,0 +1,87 @@
+import { NullActionType, Action } from '../Action'
+import { ToolImplementation, ActionImplementation } from '../ToolImplementation'
+import type { ActionType, ToolMetadata, ToolData } from '../Types'
+
+export BabelCompileActionType: ActionType = {
+  name: 'BabelCompileAction'
+}
+
+export class BabelCompileAction extends ActionImplementation:
+  constructor(platform, compilerPlatform) ->
+    super(platform)
+    this.compilerPlatform = compilerPlatform
+
+  // The platform against which we will be running this action
+  compilerPlatform: BabelCompilerTool = null
+
+  // Babel options
+  options = {}
+
+  _add(k, v, opts): void ->
+    entry = if opts: [v, opts] else: v
+    if this.options[k]:
+      this.options[k].push(entry)
+    else:
+      this.options[k] = [entry]
+
+  getType(): ActionType -> BabelCompileActionType
+
+  dispose(): void ->
+    this.platform = null
+    this.options = null
+
+  addPreset(preset, opts): void -> this._add('presets', preset, opts)
+  addPlugin(plugin, opts): void -> this._add('plugins', plugin, opts)
+
+  run({code, ast}) -/>
+    try:
+      if ast:
+        this.compilerPlatform.transformFromAstSync(ast, this.options)
+      else:
+        this.compilerPlatform.transformSync(code, this.options)
+    catch err:
+      { error: err }
+
+export class BabelCompilerTool extends ToolImplementation:
+  // Semver of babel platform
+  babelSemver = 'unknown'
+
+  // Babel Standalone implementation
+  babelStandalone = null
+
+  getMetadata(): ToolMetadata -/>
+    {
+      name: `Babel Compiler Platform: v${this.babelSemver}`
+      inputActionType: NullActionType
+      outputActionType: BabelCompileActionType
+      options: {}
+    }
+
+  getData(): ToolData -/>
+    {
+      options: {}
+      parentToolId: this.parentToolId
+      structure: null
+    }
+
+  // eslint-disable-next-line no-unused-vars
+  apply(inputAction: Action) -/>
+    new BabelCompileAction(this.platform, this)
+
+// Dependency injection from external module
+export makeCompilerPlatform({
+  transformSync
+  transformFromAstSync
+  getAvailablePlugins
+  getAvailablePresets
+  version
+}) ->
+  class RealBabelCompilerTool extends BabelCompilerTool:
+    babelSemver = version
+
+    transformSync(code, options) -> transformSync(code, options)
+    transformFromAstSync(ast, options) -> transformFromAstSync(ast, options)
+    getAvailablePlugins() -> getAvailablePlugins()
+    getAvailablePresets() -> getAvailablePresets()
+
+  return RealBabelCompilerTool
