@@ -7,3 +7,9 @@ exports[`load toolchain 1`] = `
   return 1;
 }"
 `;
+
+exports[`unified toolchain 1`] = `
+"function f() {
+  return 1;
+}"
+`;

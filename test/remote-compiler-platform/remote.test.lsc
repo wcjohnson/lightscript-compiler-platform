@@ -47,3 +47,19 @@ test! "load toolchain", -/>
     `
   })
   expect(rst.code).toMatchSnapshot()
+
+test! "unified toolchain", -/>
+  p = new InPlacePlatform()
+  t <- p.createTool({
+    source: {
+      type: 'remote'
+      url: 'https://wcjohnson.github.io/lightscript-compiler/modules/registry.js'
+    }
+  })
+  act <- t.apply(null)
+  rst <- act.run({
+    code: `
+      f() -> 1
+    `
+  })
+  expect(rst.code).toMatchSnapshot()

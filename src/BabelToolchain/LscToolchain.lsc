@@ -14,7 +14,7 @@ export class LscToolchain extends Toolchain:
   versions: [ToolchainVersion] = []
   optionsMetadata: ConfigurationOptions = {}
 
-  versionsToOptions(): void -> {
+  versionsToOptions() -> {
     description: "Compiler version"
     valueType: "options"
     options: [...for elem v in this.versions: [v.name]]
@@ -26,8 +26,8 @@ export class LscToolchain extends Toolchain:
       options: this.optionsMetadata
     }
 
-  setOptions(opts) -/>
-    version = if not opts?.version:
+  setOptions(opts = {}) -/>
+    version = if not opts.version:
       // Latest version
       this.versions[this.versions.length - 1]
     else:
@@ -43,8 +43,6 @@ export class LscToolchain extends Toolchain:
         }
       ]
     })
-
-    return
 
 // Dependency injection from external module
 export lscToolchains({versions}) ->
