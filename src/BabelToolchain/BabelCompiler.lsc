@@ -1,12 +1,11 @@
-import { NullActionType, Action } from '../Action'
-import { ToolImplementation, ActionImplementation } from '../ToolImplementation'
-import type { ActionType, ToolMetadata, ToolData } from '../Types'
+import { NullActionType, Tool, Action } from '../Tool'
+import type { ActionType } from '../Types'
 
 export BabelCompileActionType: ActionType = {
   name: 'BabelCompileAction'
 }
 
-export class BabelCompileAction extends ActionImplementation:
+export class BabelCompileAction extends Action:
   constructor(platform, compilerPlatform) ->
     super(platform)
     this.compilerPlatform = compilerPlatform
@@ -42,31 +41,30 @@ export class BabelCompileAction extends ActionImplementation:
     catch err:
       { error: err }
 
-export class BabelCompilerTool extends ToolImplementation:
+export class BabelCompilerTool extends Tool:
   // Semver of babel platform
   babelSemver = 'unknown'
 
   // Babel Standalone implementation
   babelStandalone = null
 
-  getMetadata(): ToolMetadata -/>
-    {
-      name: `Babel Compiler Platform: v${this.babelSemver}`
-      inputActionType: NullActionType
-      outputActionType: BabelCompileActionType
-      options: {}
+  getMetadata() -/> {
+    name: `Babel Compiler Platform: v${this.babelSemver}`
+    types: {
+      input: NullActionType
+      output: BabelCompileActionType
     }
-
-  getData(): ToolData -/>
-    {
-      options: {}
-      parentToolId: this.parentToolId
-      structure: null
-    }
+    hasChildren: false
+    possibleOptions: {}
+  }
 
   // eslint-disable-next-line no-unused-vars
   apply(inputAction: Action) -/>
     new BabelCompileAction(this.platform, this)
+
+  dispose(): void ->
+    // Drop ref to the babelStandalone module
+    this.babelStandalone = null
 
 // Dependency injection from external module
 export makeCompilerPlatform({

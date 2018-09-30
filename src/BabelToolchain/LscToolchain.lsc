@@ -1,6 +1,6 @@
 // Configurable lsc plugin tool
-import { Toolchain } from '../ToolImplementation'
-import type { ToolMetadata, ToolData, ToolSource, ConfigurationOptions } from '../Types'
+import { Toolchain } from '../Tool'
+import type { ToolSource, ConfigurationOptions } from '../Types'
 
 type ToolchainVersion = {
   name: string,
@@ -20,13 +20,19 @@ export class LscToolchain extends Toolchain:
     options: [...for elem v in this.versions: [v.name]]
   }
 
-  getMetadata(): ToolMetadata -/>
-    {
-      name: 'LightScript Toolchain'
-      options: this.optionsMetadata
-    }
+  getMetadata() -/> {
+    name: 'LightScript Toolchain'
+    hasChildren: true
+    possibleOptions: this.optionsMetadata
+  }
+
+  describe(includeMetadata: boolean = false) -/>
+    desc <- super.describe(includeMetadata)
+    desc.options.version = this.specifiedVersion
+    desc
 
   setOptions(opts = {}) -/>
+    this.specifiedVersion = opts.version
     version = if not opts.version:
       // Latest version
       this.versions[this.versions.length - 1]
@@ -35,11 +41,11 @@ export class LscToolchain extends Toolchain:
     if not version: throw new Error("invalid compiler version")
 
     super.setOptions({
-      tools: [
-        { source: version.babel, options: opts.tools?[0]?.options }
+      children: [
+        { source: version.babel, options: opts.children?[0]?.options }
         {
           source: if opts.usePreset: version.lscPreset else: version.lscPlugin
-          options: opts.tools?[1]?.options
+          options: opts.children?[1]?.options
         }
       ]
     })
@@ -48,4 +54,10 @@ export class LscToolchain extends Toolchain:
 export lscToolchains({versions}) ->
   return class RealLscToolchain extends LscToolchain:
     versions = versions
-    optionsMetadata = { version: this.versionsToOptions() }
+    optionsMetadata = {
+      version: this.versionsToOptions()
+      children: {
+        valueType: "array(tool)"
+        mutable: false
+      }
+    }

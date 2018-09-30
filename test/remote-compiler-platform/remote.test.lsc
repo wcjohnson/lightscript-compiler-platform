@@ -8,6 +8,7 @@ test! "load remote compiler platform", -/>
       url: 'https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js'
     }
   })
+  description <- t.describe(true)
   act <- t.apply(null)
 
   rst <- act.run({
@@ -15,14 +16,14 @@ test! "load remote compiler platform", -/>
       class C {}
     `
   })
-  expect(rst.code).toMatchSnapshot()
+  expect({ description, code: rst.code}).toMatchSnapshot()
 
 test! "load toolchain", -/>
   p = new InPlacePlatform()
   t <- p.createTool({
     source: { type: 'toolchain' }
     options: {
-      tools: [
+      children: [
         // babel
         {
           source: {
@@ -40,13 +41,14 @@ test! "load toolchain", -/>
       ]
     }
   })
+  description <- t.describe(true)
   act <- t.apply(null)
   rst <- act.run({
     code: `
       f() -> 1
     `
   })
-  expect(rst.code).toMatchSnapshot()
+  expect({ description, code: rst.code}).toMatchSnapshot()
 
 test! "unified toolchain", -/>
   p = new InPlacePlatform()
@@ -56,10 +58,11 @@ test! "unified toolchain", -/>
       url: 'https://wcjohnson.github.io/lightscript-compiler/modules/registry.js'
     }
   })
+  description <- t.describe(true)
   act <- t.apply(null)
   rst <- act.run({
     code: `
       f() -> 1
     `
   })
-  expect(rst.code).toMatchSnapshot()
+  expect({ description, code: rst.code}).toMatchSnapshot()

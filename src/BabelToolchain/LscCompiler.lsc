@@ -1,9 +1,9 @@
 // Configurable lsc plugin tool
 import { BabelCompileAction, BabelCompileActionType } from './BabelCompiler'
-import { ToolImplementation } from '../ToolImplementation'
-import type { ToolMetadata, ToolData } from '../Types'
+import { Tool } from '../Tool'
+import type { ToolMetadata } from '../Types'
 
-export class LscBabelPluginTool extends ToolImplementation:
+export class LscBabelPluginTool extends Tool:
   // Lsc babel plugin
   lscPlugin = null
   // Lsc semver
@@ -11,27 +11,36 @@ export class LscBabelPluginTool extends ToolImplementation:
   // Lsc compiler options metadata
   optionsMetadata = {}
   // Lsc config options
-  options = {}
+  lscOptions = {}
 
-  getMetadata(): ToolMetadata -/>
+  getMetadata(): ToolMetadata -/> {
+    name: `LightScript Compiler Plugin: v${this.lscVersion}`
+    types: {
+      input: BabelCompileActionType
+      output: BabelCompileActionType
+    }
+    hasChildren: false
+    possibleOptions: this.optionsMetadata
+  }
+
+  describe(includeMetadata: boolean = false) -/>
+    v = if includeMetadata: <- this.getMetadata()
     {
-      name: `LightScript Compiler Plugin: v${this.lscVersion}`
-      version: this.lscVersion
-      inputActionType: BabelCompileActionType
-      outputActionType: BabelCompileActionType
-      options: this.optionsMetadata
+      source: this.source
+      ...if includeMetadata: { _metadata: v }
+      options: this.lscOptions
     }
 
-  getData(): ToolData -/>
-    {
-      id: this.id
-      parentId: this.parentToolId
-      options: this.options
-    }
+  setOptions(opts) -/>
+    this.lscOptions = opts or {}
 
   apply(inputAction: BabelCompileAction) -/>
-    inputAction.addPlugin(this.lscPlugin, this.options)
+    inputAction.addPlugin(this.lscPlugin, this.lscOptions)
     inputAction
+
+  dispose(): void ->
+    // Drop ref to lsc compiler
+    this.lscPlugin = null
 
 // Dependency injection from external module
 export wrapLscPlugin({plugin, version, options}) ->

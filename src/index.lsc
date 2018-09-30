@@ -1,7 +1,5 @@
 import { Id, Platform } from './Platform'
-import { Action } from './Action'
-import { Tool } from './Tool'
-import { ToolImplementation, ActionImplementation, Toolchain } from './ToolImplementation'
+import { Tool, Action, Toolchain } from './Tool'
 import { BabelCompileAction, BabelCompilerTool } from './BabelToolchain/BabelCompiler'
 import { InPlacePlatform } from './InPlacePlatform'
 
@@ -10,8 +8,6 @@ export {
   Platform
   Action
   Tool
-  ToolImplementation
-  ActionImplementation
   Toolchain
   BabelCompileAction
   BabelCompilerTool

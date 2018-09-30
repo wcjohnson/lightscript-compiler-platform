@@ -1,15 +1,265 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`load remote compiler platform 1`] = `"class C {}"`;
+exports[`load remote compiler platform 1`] = `
+Object {
+  "code": "class C {}",
+  "description": Object {
+    "_metadata": Object {
+      "hasChildren": false,
+      "name": "Babel Compiler Platform: v7.0.0",
+      "possibleOptions": Object {},
+      "types": Object {
+        "input": Object {
+          "name": "NullAction",
+        },
+        "output": Object {
+          "name": "BabelCompileAction",
+        },
+      },
+    },
+    "source": Object {
+      "type": "remote",
+      "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js",
+    },
+  },
+}
+`;
 
 exports[`load toolchain 1`] = `
-"function f() {
+Object {
+  "code": "function f() {
   return 1;
-}"
+}",
+  "description": Object {
+    "_metadata": Object {
+      "hasChildren": true,
+      "name": "Toolchain",
+      "possibleOptions": Object {
+        "children": Object {
+          "mutable": true,
+          "valueType": "array(tool)",
+        },
+      },
+    },
+    "options": Object {
+      "children": Array [
+        Object {
+          "_metadata": Object {
+            "hasChildren": false,
+            "name": "Babel Compiler Platform: v7.0.0",
+            "possibleOptions": Object {},
+            "types": Object {
+              "input": Object {
+                "name": "NullAction",
+              },
+              "output": Object {
+                "name": "BabelCompileAction",
+              },
+            },
+          },
+          "source": Object {
+            "type": "remote",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js",
+          },
+        },
+        Object {
+          "_metadata": Object {
+            "hasChildren": false,
+            "name": "LightScript Compiler Plugin: v4.0.0-alpha.12",
+            "possibleOptions": Object {
+              "_decoratorParsing": Object {
+                "defaultValue": "legacy",
+                "description": "Override decorator parsing. (For diagnostic purposes only; in an ordinary build chain you would use the preset to configure decorator parsing.)",
+                "options": Array [
+                  "none",
+                  "legacy",
+                  "decoratorsBeforeExport",
+                  "noDecoratorsBeforeExport",
+                ],
+                "valueType": "options",
+              },
+              "bangCall": Object {
+                "defaultValue": true,
+                "description": "Call functions with paren-free syntax using \`!\`",
+                "valueType": "boolean",
+              },
+              "disableFlow": Object {
+                "description": "Don't parse Flow type annotations.",
+                "valueType": "boolean",
+              },
+              "disableJsx": Object {
+                "description": "Don't parse JSX expressions.",
+                "valueType": "boolean",
+              },
+              "flippedImports": Object {
+                "description": "Allow imports via \`import 'path': [specifier]\` syntax.",
+                "valueType": "boolean",
+              },
+              "patternMatching": Object {
+                "defaultValue": true,
+                "description": "Test and branch using \`match\` keyword",
+                "valueType": "boolean",
+              },
+              "placeholder": Object {
+                "description": "Specify an identifier to be transformed into PlaceholderExpression.",
+                "valueType": "string",
+              },
+              "placeholderArgs": Object {
+                "description": "Specify arguments for a function using placeholders in the body.",
+                "valueType": "boolean",
+              },
+              "stdlib": Object {
+                "description": "Configure the LightScript standard library",
+              },
+              "useRequire": Object {
+                "description": "Generate \`require\` rather than \`import\` when the compiler introduces a module.",
+                "valueType": "boolean",
+              },
+            },
+            "types": Object {
+              "input": Object {
+                "name": "BabelCompileAction",
+              },
+              "output": Object {
+                "name": "BabelCompileAction",
+              },
+            },
+          },
+          "options": Object {},
+          "source": Object {
+            "type": "remote",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/compiler/4.0.0-alpha.12.min.js",
+          },
+        },
+      ],
+    },
+    "source": Object {
+      "type": "toolchain",
+    },
+  },
+}
 `;
 
 exports[`unified toolchain 1`] = `
-"function f() {
+Object {
+  "code": "function f() {
   return 1;
-}"
+}",
+  "description": Object {
+    "_metadata": Object {
+      "hasChildren": true,
+      "name": "LightScript Toolchain",
+      "possibleOptions": Object {
+        "children": Object {
+          "mutable": false,
+          "valueType": "array(tool)",
+        },
+        "version": Object {
+          "description": "Compiler version",
+          "options": Array [
+            "4.0.0-alpha.12",
+          ],
+          "valueType": "options",
+        },
+      },
+    },
+    "options": Object {
+      "children": Array [
+        Object {
+          "_metadata": Object {
+            "hasChildren": false,
+            "name": "Babel Compiler Platform: v7.0.0",
+            "possibleOptions": Object {},
+            "types": Object {
+              "input": Object {
+                "name": "NullAction",
+              },
+              "output": Object {
+                "name": "BabelCompileAction",
+              },
+            },
+          },
+          "source": Object {
+            "type": "remote",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js",
+          },
+        },
+        Object {
+          "_metadata": Object {
+            "hasChildren": false,
+            "name": "LightScript Compiler Plugin: v4.0.0-alpha.12",
+            "possibleOptions": Object {
+              "_decoratorParsing": Object {
+                "defaultValue": "legacy",
+                "description": "Override decorator parsing. (For diagnostic purposes only; in an ordinary build chain you would use the preset to configure decorator parsing.)",
+                "options": Array [
+                  "none",
+                  "legacy",
+                  "decoratorsBeforeExport",
+                  "noDecoratorsBeforeExport",
+                ],
+                "valueType": "options",
+              },
+              "bangCall": Object {
+                "defaultValue": true,
+                "description": "Call functions with paren-free syntax using \`!\`",
+                "valueType": "boolean",
+              },
+              "disableFlow": Object {
+                "description": "Don't parse Flow type annotations.",
+                "valueType": "boolean",
+              },
+              "disableJsx": Object {
+                "description": "Don't parse JSX expressions.",
+                "valueType": "boolean",
+              },
+              "flippedImports": Object {
+                "description": "Allow imports via \`import 'path': [specifier]\` syntax.",
+                "valueType": "boolean",
+              },
+              "patternMatching": Object {
+                "defaultValue": true,
+                "description": "Test and branch using \`match\` keyword",
+                "valueType": "boolean",
+              },
+              "placeholder": Object {
+                "description": "Specify an identifier to be transformed into PlaceholderExpression.",
+                "valueType": "string",
+              },
+              "placeholderArgs": Object {
+                "description": "Specify arguments for a function using placeholders in the body.",
+                "valueType": "boolean",
+              },
+              "stdlib": Object {
+                "description": "Configure the LightScript standard library",
+              },
+              "useRequire": Object {
+                "description": "Generate \`require\` rather than \`import\` when the compiler introduces a module.",
+                "valueType": "boolean",
+              },
+            },
+            "types": Object {
+              "input": Object {
+                "name": "BabelCompileAction",
+              },
+              "output": Object {
+                "name": "BabelCompileAction",
+              },
+            },
+          },
+          "options": Object {},
+          "source": Object {
+            "type": "remote",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/compiler/4.0.0-alpha.12.min.js",
+          },
+        },
+      ],
+      "version": undefined,
+    },
+    "source": Object {
+      "type": "remote",
+      "url": "https://wcjohnson.github.io/lightscript-compiler/modules/registry.js",
+    },
+  },
+}
 `;

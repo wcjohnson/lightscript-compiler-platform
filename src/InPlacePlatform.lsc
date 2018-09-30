@@ -1,7 +1,7 @@
-import SystemJS from 'systemjs'
 import { Platform } from './Platform'
-import { Toolchain } from './ToolImplementation'
+import { Toolchain } from './Tool'
 import toolAPI from './ToolAPI'
+import SystemJS from './system.src.js'
 
 toolClassMappers = {
   toolchain: -> Promise.resolve(Toolchain)
@@ -17,5 +17,4 @@ export class InPlacePlatform extends Platform:
     clazz <- toolClassMappers[spec.source.type](spec.source)
     tool = new clazz(this, spec.source)
     <- tool.setOptions(spec.options)
-    this.putObject(tool.id, tool)
     tool
