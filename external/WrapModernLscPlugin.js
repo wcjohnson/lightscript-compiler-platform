@@ -11,4 +11,4 @@ export function getToolImplementation(toolApi) {
     version: metadata.version,
     options: metadata.options
   })
-};
+}
