@@ -66,3 +66,28 @@ test! "unified toolchain", -/>
     `
   })
   expect({ description, code: rst.code}).toMatchSnapshot()
+
+test! "babel 6", -/>
+  p = new InPlacePlatform()
+  t <- p.createTool({
+    source: { type: 'toolchain' }
+    options: {
+      children: [
+        // babel
+        {
+          source: {
+            type: 'remote'
+            url: 'https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-6.26.0.min.js'
+          }
+        }
+      ]
+    }
+  })
+  description <- t.describe(true)
+  act <- t.apply(null)
+  rst <- act.run({
+    code: `
+      f() -> 1
+    `
+  })
+  expect({ description, code: rst.code}).toMatchSnapshot()

@@ -1,5 +1,49 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`babel 6 1`] = `
+Object {
+  "code": undefined,
+  "description": Object {
+    "_metadata": Object {
+      "hasChildren": true,
+      "name": "Toolchain",
+      "possibleOptions": Object {
+        "children": Object {
+          "mutable": true,
+          "valueType": "array(tool)",
+        },
+      },
+    },
+    "options": Object {
+      "children": Array [
+        Object {
+          "_metadata": Object {
+            "hasChildren": false,
+            "name": "Babel Compiler Platform: v6.26.0",
+            "possibleOptions": Object {},
+            "types": Object {
+              "input": Object {
+                "name": "NullAction",
+              },
+              "output": Object {
+                "name": "BabelCompileAction",
+              },
+            },
+          },
+          "source": Object {
+            "type": "remote",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-6.26.0.min.js",
+          },
+        },
+      ],
+    },
+    "source": Object {
+      "type": "toolchain",
+    },
+  },
+}
+`;
+
 exports[`load remote compiler platform 1`] = `
 Object {
   "code": "class C {}",
@@ -158,6 +202,7 @@ Object {
           "defaultValue": "4.0.0-alpha.12",
           "description": "Compiler version",
           "options": Array [
+            "3.1.1",
             "4.0.0-alpha.12",
           ],
           "valueType": "options",
