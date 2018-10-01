@@ -38,7 +38,7 @@ export class LscToolchain extends Toolchain:
       // Latest version
       this.versions[this.versions.length - 1]
     else:
-      this.versions.find(x -> x.version == opts.version)
+      this.versions.find(x -> x.name == opts.version)
     if not version: throw new Error("invalid compiler version")
 
     super.setOptions({
