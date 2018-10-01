@@ -1,0 +1,13 @@
+// Given a config descriptor, return a simpler one that discards metadata
+copyWithoutMetadata(node) ->
+  if Array.isArray(node):
+    [...for elem e in node: [e~copyWithoutMetadata!]]
+  elif typeof(node) == 'object':
+    {...for key k, val v in node:
+      if k != '_metadata':
+        {[k]: v~copyWithoutMetadata!}
+    }
+  else:
+    node
+
+export simplifyConfig(config) -> copyWithoutMetadata(config)

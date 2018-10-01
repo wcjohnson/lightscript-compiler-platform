@@ -2,6 +2,7 @@ import { Id, Platform } from './Platform'
 import { Tool, Action, Toolchain } from './Tool'
 import { BabelCompileAction, BabelCompilerTool } from './BabelToolchain/BabelCompiler'
 import { InPlacePlatform } from './InPlacePlatform'
+import { simplifyConfig } from './utils/simplifyConfig'
 
 export {
   Id
@@ -12,4 +13,5 @@ export {
   BabelCompileAction
   BabelCompilerTool
   InPlacePlatform
+  simplifyConfig
 }
