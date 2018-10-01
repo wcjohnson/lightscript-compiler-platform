@@ -18,6 +18,7 @@ export class LscToolchain extends Toolchain:
     description: "Compiler version"
     valueType: "options"
     options: [...for elem v in this.versions: [v.name]]
+    defaultValue: this.versions[this.versions.length - 1]?.name or ''
   }
 
   getMetadata() -/> {

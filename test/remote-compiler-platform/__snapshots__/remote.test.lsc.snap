@@ -155,6 +155,7 @@ Object {
           "valueType": "array(tool)",
         },
         "version": Object {
+          "defaultValue": "4.0.0-alpha.12",
           "description": "Compiler version",
           "options": Array [
             "4.0.0-alpha.12",
