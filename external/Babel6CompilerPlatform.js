@@ -12,4 +12,4 @@ export function getToolImplementation(api) {
     registerPlugins,
     registerPresets
   })
-};
+}
