@@ -1,11 +1,61 @@
 // Configurable lsc plugin tool
 import { BabelCompileAction, BabelCompileActionType } from './BabelCompiler'
-import { Tool } from '../Tool'
+import { Tool, Action } from '../Tool'
 import type { ToolMetadata } from '../Types'
+
+export LscParseActionType = {
+  name: 'LscParseAction'
+}
+
+class LscParseAction extends Action:
+  constructor(platform, lscPlugin) ->
+    super(platform)
+    this.lscPlugin = lscPlugin
+
+  getType() -> LscParseActionType
+
+  dispose(): void ->
+    this.platform = null
+    this.lscPlugin = null
+
+  isOld(): boolean ->
+    metadata = this.lscPlugin.lscMetadata
+    if metadata.getCompilerConfiguration:
+      false
+    else:
+      true
+
+  parseOld(code) ->
+    let opts = this.lscPlugin.lscOptions
+    metadata = this.lscPlugin.lscMetadata
+    if metadata.parseConfigurationDirectives:
+      configDirectives = metadata.parseConfigurationDirectives(code)
+      now opts = Object.assign({}, opts, configDirectives)
+    parserOpts = metadata.getParserOpts(opts)
+    parserOpts.sourceType = 'module'
+    ast = metadata.parser.parse(code, parserOpts)
+    { ast }
+
+  parseNew(code) ->
+    let opts = this.lscPlugin.lscOptions
+    metadata = this.lscPlugin.lscMetadata
+    config = metadata.getCompilerConfiguration(null, code, opts)
+    ast = metadata.parse(code, config)
+    { ast }
+
+  run({code}) -/>
+    if this.isOld():
+      this.parseOld(code)
+    else:
+      this.parseNew(code)
 
 export class LscBabelPluginTool extends Tool:
   // Lsc babel plugin
   lscPlugin = null
+  // Plugin API
+  lscApi = null
+  // Plugin metadata
+  lscMetadata = null
   // Lsc semver
   lscVersion = "unknown"
   // Lsc compiler options metadata
@@ -34,17 +84,23 @@ export class LscBabelPluginTool extends Tool:
   setOptions(opts) -/>
     this.lscOptions = opts or {}
 
-  apply(inputAction: BabelCompileAction) -/>
-    inputAction.addPlugin(this.lscPlugin, this.lscOptions)
-    inputAction
+  apply(inputAction) -/>
+    if inputAction instanceof BabelCompileAction:
+      inputAction.addPlugin(this.lscPlugin, this.lscOptions)
+      inputAction
+    else:
+      // If no babel plugin in front, parse only!
+      new LscParseAction(this.platform, this)
 
   dispose(): void ->
     // Drop ref to lsc compiler
     this.lscPlugin = null
 
 // Dependency injection from external module
-export wrapLscPlugin({plugin, version, options}) ->
+export wrapLscPlugin({plugin, api, metadata, version, options}) ->
   return class RealLscPluginTool extends LscBabelPluginTool:
     lscPlugin = plugin
+    lscApi = api
+    lscMetadata = metadata
     lscVersion = version
     optionsMetadata = options

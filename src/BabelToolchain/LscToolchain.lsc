@@ -29,6 +29,7 @@ export class LscToolchain extends Toolchain:
 
   describe(includeMetadata: boolean = false) -/>
     desc <- super.describe(includeMetadata)
+    if this.parseOnly: desc.options.parseOnly = true
     desc.options.version = this.specifiedVersion
     desc
 
@@ -41,9 +42,12 @@ export class LscToolchain extends Toolchain:
       this.versions.find(x -> x.name == opts.version)
     if not version: throw new Error("invalid compiler version")
 
+    this.parseOnly = if opts.parseOnly~looseNotEq(null): opts.parseOnly else: false
+
     super.setOptions({
       children: [
-        { source: version.babel, options: opts.children?[0]?.options }
+        ...if not this.parseOnly:
+          [{ source: version.babel, options: opts.children?[0]?.options }]
         {
           source: if opts.usePreset: version.lscPreset else: version.lscPlugin
           options: opts.children?[1]?.options
@@ -57,6 +61,11 @@ export lscToolchains({versions}) ->
     versions = versions
     optionsMetadata = {
       version: this.versionsToOptions()
+      parseOnly: {
+        description: "Parse without transforming."
+        valueType: "boolean"
+        defaultValue: false
+      }
       children: {
         valueType: "array(tool)"
         mutable: false
