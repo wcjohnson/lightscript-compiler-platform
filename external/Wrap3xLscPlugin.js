@@ -6,6 +6,7 @@ export function getToolImplementation(toolApi) {
 
   return toolApi.wrapLscPlugin({
     plugin: plugin,
+    metadata: metadata,
     version: metadata.version,
     options: metadata.options
   })
