@@ -2,9 +2,11 @@ import { Platform } from './Platform'
 import { Toolchain } from './Tool'
 import toolAPI from './ToolAPI'
 import SystemJS from './system.src.js'
+import { AnyBabelPluginTool } from './BabelToolchain/AnyBabelPlugin'
 
 toolClassMappers = {
   toolchain: -> Promise.resolve(Toolchain)
+  babelPlugin: -> Promise.resolve(AnyBabelPluginTool)
   remote: (opts) -/>
     mod <- SystemJS.import(opts.url)
     mod.getToolImplementation(toolAPI)

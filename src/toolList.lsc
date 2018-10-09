@@ -1,0 +1,16 @@
+export getTools() -> [
+  {
+    displayName: "Babel plugin"
+    spec: {
+      source: { type: 'babelPlugin' }
+      options: { }
+    }
+  }
+  {
+    displayName: "Toolchain"
+    spec: {
+      source: { type: 'toolchain' }
+      options: { children: [] }
+    }
+  }
+]

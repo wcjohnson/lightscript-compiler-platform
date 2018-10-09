@@ -3,6 +3,8 @@ import { Tool, Action, Toolchain } from './Tool'
 import { BabelCompileAction, BabelCompilerTool } from './BabelToolchain/BabelCompiler'
 import { InPlacePlatform } from './InPlacePlatform'
 import { simplifyConfig } from './utils/simplifyConfig'
+import { AnyBabelPluginTool } from './BabelToolchain/AnyBabelPlugin'
+import { getTools } from './toolList'
 
 export {
   Id
@@ -14,4 +16,6 @@ export {
   BabelCompilerTool
   InPlacePlatform
   simplifyConfig
+  AnyBabelPluginTool
+  getTools
 }
