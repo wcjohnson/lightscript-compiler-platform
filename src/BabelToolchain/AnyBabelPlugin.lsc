@@ -1,88 +1,9 @@
-import { BabelCompileActionType } from './BabelCompiler'
-import { Tool } from '../Tool'
-import SystemJS from '../system.src.js'
+import { BabelTool } from './BabelTool'
 
-export class AnyBabelPluginTool extends Tool:
-  // babel plugin
-  plugin = null
-  // Plugin opts
-  jsonPluginOpts = '{}'
-  pluginOpts = {}
-  // Plugin npm name
-  pluginNpmPackage = null
-  // Plugin version
-  pluginNpmVersion = null
-
-  getMetadata() -/> {
-    name: `Babel Plugin`
-    types: {
-      input: BabelCompileActionType
-      output: BabelCompileActionType
-    }
-    hasChildren: false
-    possibleOptions: {
-      package: {
-        description: "Exact name of npm package"
-        valueType: "string"
-        defaultValue: ''
-      }
-      version: {
-        description: "Exact version of npm package (no semver aliases allowed)"
-        valueType: "string"
-        defaultValue: ''
-      }
-      options: {
-        description: "Babel plugin options (JSON)"
-        valueType: "json"
-        defaultValue: '{}'
-      }
-    }
-    ui: {
-      // Don't live-update plugin options as user types here.
-      // We don't want to trigger a bunch of invalid module load requests
-      // while the user is typing in the plugin name.
-      noLiveUpdates: true
-    }
-  }
-
-  describe(includeMetadata: boolean = false) -/>
-    v = if includeMetadata: <- this.getMetadata()
-    {
-      source: this.source
-      ...if includeMetadata: { _metadata: v }
-      options: {
-        package: this.pluginNpmPackage
-        version: this.pluginNpmVersion
-        options: this.jsonPluginOpts
-      }
-    }
-
-  setOptions(opts = {}) -/>
-    this.pluginNpmPackage = opts.package
-    this.pluginNpmVersion = opts.version
-    this.jsonPluginOpts = opts.options
-    this.pluginOpts = JSON.parse(this.jsonPluginOpts or '{}')
-    this.plugin = null
-    // Try to locate package on jspm.io
-    if this.pluginNpmPackage:
-      try:
-        url = `https://bundle.run/${this.pluginNpmPackage}@${this.pluginNpmVersion}`
-        SystemJS.config({
-          meta: {
-            [url]: { format: 'global' }
-          }
-        })
-        imported <- SystemJS.import(url)
-        this.plugin = if imported.default: imported.default else: imported
-      catch err:
-        err.message = `Babel plugin ${this.pluginNpmPackage}@${this.pluginNpmVersion} could not be loaded: ` + err.message
-        throw err
-
+export class AnyBabelPluginTool extends BabelTool:
+  displayName = 'Babel Plugin'
 
   apply(inputAction) -/>
-    if this.plugin:
-      inputAction.addPlugin(this.plugin, this.pluginOpts or {})
+    if this.mod:
+      inputAction.addPlugin(this.mod, this.opts or {})
     inputAction
-
-  dispose(): void ->
-    this.plugin = null

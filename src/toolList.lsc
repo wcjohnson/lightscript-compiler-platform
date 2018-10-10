@@ -7,6 +7,13 @@ export getTools() -> [
     }
   }
   {
+    displayName: "Babel preset"
+    spec: {
+      source: { type: 'babelPreset' }
+      options: { }
+    }
+  }
+  {
     displayName: "Toolchain"
     spec: {
       source: { type: 'toolchain' }

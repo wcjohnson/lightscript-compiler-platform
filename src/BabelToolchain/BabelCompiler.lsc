@@ -19,7 +19,10 @@ export class BabelCompileAction extends Action:
   _add(k, v, opts): void ->
     entry = if opts: [v, opts] else: v
     if this.options[k]:
-      this.options[k].push(entry)
+      if k == 'presets':
+        this.options[k].unshift(entry)
+      else:
+        this.options[k].push(entry)
     else:
       this.options[k] = [entry]
 

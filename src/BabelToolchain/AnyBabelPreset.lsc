@@ -1,0 +1,9 @@
+import { BabelTool } from './BabelTool'
+
+export class AnyBabelPresetTool extends BabelTool:
+  displayName = 'Babel Preset'
+
+  apply(inputAction) -/>
+    if this.mod:
+      inputAction.addPreset(this.mod, this.opts or {})
+    inputAction
