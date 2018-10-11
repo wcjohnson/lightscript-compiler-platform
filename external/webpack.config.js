@@ -6,6 +6,9 @@ var noMinify = process.env.NO_MINIFY
 
 module.exports = {
   entry: `./${target}.js`,
+  node: {
+    fs: 'empty'
+  },
   output: {
     path: path.resolve(__dirname, 'output'),
     filename: `${target}.js`,
