@@ -1908,7 +1908,7 @@
       exports: undefined,
       encapsulateGlobal: false,
       crossOrigin: undefined,
-      cjsRequireDetection: true,
+      cjsRequireDetection: false,
       cjsDeferDepsExecute: false,
       esModule: false
     };
@@ -3508,12 +3508,15 @@
         return source;
       }
 
-      if (metadata.load.format !== 'esm' && (metadata.load.format || !source.match(esmRegEx))) {
-        return source;
-      }
+      // Babel tends to fool the esm detection...
+      return source;
 
-      metadata.load.format = 'esm';
-      return transpile(loader, source, key, metadata, processAnonRegister);
+      // if (metadata.load.format !== 'esm' && (metadata.load.format || !source.match(esmRegEx))) {
+      //   return source;
+      // }
+
+      // metadata.load.format = 'esm';
+      // return transpile(loader, source, key, metadata, processAnonRegister);
     })
 
     // instantiate
