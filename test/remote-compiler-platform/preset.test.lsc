@@ -1,0 +1,38 @@
+import { InPlacePlatform } from '../..'
+
+jest.setTimeout(100000000)
+
+test! "preset toolchain", -/>
+  p = new InPlacePlatform()
+  debugger
+  t <- p.createTool({
+    source: { type: 'toolchain' }
+    options: {
+      children: [
+        // babel
+        {
+          source: {
+            type: 'remote'
+            url: 'https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js'
+          }
+        }
+        // lsc preset
+        {
+          source: {
+            type: 'remote'
+            format: 'cjs'
+            url: 'https://wcjohnson.github.io/lightscript-compiler/modules/preset/4.0.0-alpha.19.min.js'
+          }
+        }
+      ]
+    }
+  })
+  description <- t.describe(true)
+  act <- t.apply(null)
+  rst <- act.run({
+    code: `
+      f() -> 1
+    `
+  })
+  console.log("Preset result", rst)
+  expect({ description, result: rst}).toMatchSnapshot()

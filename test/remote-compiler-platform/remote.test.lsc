@@ -16,7 +16,7 @@ test! "load remote compiler platform", -/>
       class C {}
     `
   })
-  expect({ description, code: rst.code}).toMatchSnapshot()
+  expect({ description, result: rst}).toMatchSnapshot()
 
 test! "load toolchain", -/>
   p = new InPlacePlatform()
@@ -48,7 +48,7 @@ test! "load toolchain", -/>
       f() -> 1
     `
   })
-  expect({ description, code: rst.code}).toMatchSnapshot()
+  expect({ description, result: rst}).toMatchSnapshot()
 
 test! "unified toolchain", -/>
   p = new InPlacePlatform()
@@ -65,7 +65,7 @@ test! "unified toolchain", -/>
       f() -> 1
     `
   })
-  expect({ description, code: rst.code}).toMatchSnapshot()
+  expect({ description, result: rst}).toMatchSnapshot()
 
 test! "babel 6", -/>
   p = new InPlacePlatform()
@@ -90,4 +90,4 @@ test! "babel 6", -/>
       f() -> 1
     `
   })
-  expect({ description, code: rst.code}).toMatchSnapshot()
+  expect({ description, result: rst}).toMatchSnapshot()

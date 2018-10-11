@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`preset toolchain 1`] = `
+Object {
+  "description": Object {
+    "_metadata": Object {
+      "hasChildren": true,
+      "name": "Toolchain",
+      "possibleOptions": Object {
+        "children": Object {
+          "mutable": true,
+          "valueType": "array(tool)",
+        },
+      },
+    },
+    "options": Object {
+      "children": Array [
+        Object {
+          "_metadata": Object {
+            "hasChildren": false,
+            "name": "Babel Compiler Platform: v7.0.0",
+            "possibleOptions": Object {},
+            "types": Object {
+              "input": Object {
+                "name": "NullAction",
+              },
+              "output": Object {
+                "name": "BabelCompileAction",
+              },
+            },
+          },
+          "source": Object {
+            "type": "remote",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js",
+          },
+        },
+        Object {
+          "_metadata": Object {
+            "hasChildren": false,
+            "name": "LightScript Preset: v4.0.0-alpha.19",
+            "possibleOptions": Object {
+              "options": Object {
+                "defaultValue": "{}",
+                "description": "LightScript preset options (JSON)",
+                "valueType": "string",
+              },
+            },
+            "types": Object {
+              "input": Object {
+                "name": "BabelCompileAction",
+              },
+              "output": Object {
+                "name": "BabelCompileAction",
+              },
+            },
+            "ui": Object {
+              "noLiveUpdates": true,
+            },
+          },
+          "options": Object {
+            "options": undefined,
+          },
+          "source": Object {
+            "format": "cjs",
+            "type": "remote",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/preset/4.0.0-alpha.19.min.js",
+          },
+        },
+      ],
+    },
+    "source": Object {
+      "type": "toolchain",
+    },
+  },
+  "result": Object {
+    "ast": null,
+    "code": "\\"use strict\\";
+
+function f() {
+  return 1;
+}",
+    "map": null,
+  },
+}
+`;

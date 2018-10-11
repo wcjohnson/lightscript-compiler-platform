@@ -2,7 +2,6 @@
 
 exports[`babel 6 1`] = `
 Object {
-  "code": undefined,
   "description": Object {
     "_metadata": Object {
       "hasChildren": true,
@@ -41,12 +40,18 @@ Object {
       "type": "toolchain",
     },
   },
+  "result": Object {
+    "error": [SyntaxError: unknown: Unexpected token (2:11)
+  1 | 
+> 2 |       f() -> 1
+    |            ^
+  3 |     ],
+  },
 }
 `;
 
 exports[`load remote compiler platform 1`] = `
 Object {
-  "code": "class C {}",
   "description": Object {
     "_metadata": Object {
       "hasChildren": false,
@@ -66,14 +71,16 @@ Object {
       "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js",
     },
   },
+  "result": Object {
+    "ast": null,
+    "code": "class C {}",
+    "map": null,
+  },
 }
 `;
 
 exports[`load toolchain 1`] = `
 Object {
-  "code": "function f() {
-  return 1;
-}",
   "description": Object {
     "_metadata": Object {
       "hasChildren": true,
@@ -181,14 +188,18 @@ Object {
       "type": "toolchain",
     },
   },
+  "result": Object {
+    "ast": null,
+    "code": "function f() {
+  return 1;
+}",
+    "map": null,
+  },
 }
 `;
 
 exports[`unified toolchain 1`] = `
 Object {
-  "code": "function f() {
-  return 1;
-}",
   "description": Object {
     "_metadata": Object {
       "hasChildren": true,
@@ -198,12 +209,25 @@ Object {
           "mutable": false,
           "valueType": "array(tool)",
         },
+        "parseOnly": Object {
+          "defaultValue": false,
+          "description": "Parse without transforming.",
+          "valueType": "boolean",
+        },
         "version": Object {
-          "defaultValue": "4.0.0-alpha.12",
+          "defaultValue": "4.0.0-alpha.13",
           "description": "Compiler version",
           "options": Array [
+            "0.5.9",
+            "1.1.0",
+            "2.0.1",
+            "2.1.1",
+            "2.2.1",
+            "2.3.2",
+            "3.0.0",
             "3.1.1",
             "4.0.0-alpha.12",
+            "4.0.0-alpha.13",
           ],
           "valueType": "options",
         },
@@ -227,13 +251,13 @@ Object {
           },
           "source": Object {
             "type": "remote",
-            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.1.0.min.js",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.min.js",
           },
         },
         Object {
           "_metadata": Object {
             "hasChildren": false,
-            "name": "LightScript Compiler Plugin: v4.0.0-alpha.12",
+            "name": "LightScript Compiler Plugin: v4.0.0-alpha.13",
             "possibleOptions": Object {
               "_decoratorParsing": Object {
                 "defaultValue": "legacy",
@@ -296,7 +320,7 @@ Object {
           "options": Object {},
           "source": Object {
             "type": "remote",
-            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/compiler/4.0.0-alpha.12.min.js",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/compiler/4.0.0-alpha.13.min.js",
           },
         },
       ],
@@ -306,6 +330,13 @@ Object {
       "type": "remote",
       "url": "https://wcjohnson.github.io/lightscript-compiler/modules/registry.js",
     },
+  },
+  "result": Object {
+    "ast": null,
+    "code": "function f() {
+  return 1;
+}",
+    "map": null,
   },
 }
 `;
