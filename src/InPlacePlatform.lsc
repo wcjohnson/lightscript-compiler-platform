@@ -4,13 +4,22 @@ import toolAPI from './ToolAPI'
 import SystemJS from './system.src.js'
 import { AnyBabelPluginTool } from './BabelToolchain/AnyBabelPlugin'
 import { AnyBabelPresetTool } from './BabelToolchain/AnyBabelPreset'
+import { IndirectTool } from './IndirectTool'
 
 toolClassMappers = {
   toolchain: -> Promise.resolve(Toolchain)
   babelPlugin: -> Promise.resolve(AnyBabelPluginTool)
   babelPreset: -> Promise.resolve(AnyBabelPresetTool)
+  indirect: -> Promise.resolve(IndirectTool)
   remote: (opts) -/>
-    mod <- SystemJS.import(opts.url)
+    url = opts.url
+    if opts.format:
+      SystemJS.config({
+        meta: {
+          [url]: { format: opts.format }
+        }
+      })
+    mod <- SystemJS.import(url)
     mod.getToolImplementation(toolAPI)
 }
 

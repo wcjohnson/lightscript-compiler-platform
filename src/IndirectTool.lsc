@@ -1,0 +1,44 @@
+// Load a tool from a remote url
+import { Toolchain } from './Tool'
+
+export class IndirectTool extends Toolchain:
+  url = ''
+
+  getMetadata() -/> {
+    name: 'Indirect Tool'
+    hasChildren: true
+    possibleOptions: {
+      url: {
+        description: "URL of tool module"
+        valueType: "string"
+        defaultValue: ''
+      }
+      children: {
+        valueType: "array(tool)"
+        mutable: false
+      }
+    }
+    ui: {
+      // Don't live-update plugin options as user types here.
+      // We don't want to trigger a bunch of invalid module load requests
+      // while the user is typing in the plugin name.
+      noLiveUpdates: true
+    }
+  }
+
+  describe(includeMetadata: boolean = false) -/>
+    desc <- super.describe(includeMetadata)
+    desc.options.url = this.url
+    desc
+
+  setOptions(opts = {}) -/>
+    this.url = opts.url
+    children = if this.url:
+      [{
+        source: { type: "remote", url: this.url }
+        options: opts.children?[0]?.options
+      }]
+    else:
+      []
+
+    super.setOptions({children})

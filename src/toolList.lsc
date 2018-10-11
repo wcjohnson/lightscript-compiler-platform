@@ -1,5 +1,19 @@
 export getTools() -> [
   {
+    displayName: "Toolchain"
+    spec: {
+      source: { type: 'toolchain' }
+      options: { children: [] }
+    }
+  }
+  {
+    displayName: "Indirect"
+    spec: {
+      source: { type: 'indirect' }
+      options: { }
+    }
+  }
+  {
     displayName: "Babel plugin"
     spec: {
       source: { type: 'babelPlugin' }
@@ -11,13 +25,6 @@ export getTools() -> [
     spec: {
       source: { type: 'babelPreset' }
       options: { }
-    }
-  }
-  {
-    displayName: "Toolchain"
-    spec: {
-      source: { type: 'toolchain' }
-      options: { children: [] }
     }
   }
 ]

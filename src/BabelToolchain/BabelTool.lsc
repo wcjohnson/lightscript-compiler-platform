@@ -41,7 +41,7 @@ export class BabelTool extends Tool:
       }
       options: {
         description: "Babel plugin options (JSON)"
-        valueType: "json"
+        valueType: "string"
         defaultValue: '{}'
       }
     }
@@ -78,11 +78,12 @@ export class BabelTool extends Tool:
     let url = this.url
     if not url and this.npmPackage:
       now url = `https://bundle.run/${this.npmPackage}@${this.npmVersion}`
-        SystemJS.config({
-          meta: {
-            [url]: { format: 'global' }
-          }
-        })
+      // bundle.run outputs global-variable-style modules
+      SystemJS.config({
+        meta: {
+          [url]: { format: 'global' }
+        }
+      })
 
 
     if url:
