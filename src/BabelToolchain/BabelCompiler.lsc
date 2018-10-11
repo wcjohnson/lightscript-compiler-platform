@@ -37,10 +37,11 @@ export class BabelCompileAction extends Action:
 
   run({code, ast}) -/>
     try:
-      if ast:
+      { code: nextCode, map, ast: nextAst } = if ast:
         this.compilerPlatform.transformFromAstSync(ast, this.options)
       else:
         this.compilerPlatform.transformSync(code, this.options)
+      { code: nextCode, map, ast: nextAst }
     catch err:
       { error: err }
 
