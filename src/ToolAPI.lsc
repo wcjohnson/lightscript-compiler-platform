@@ -1,6 +1,7 @@
 import { BabelCompilerTool, makeCompilerPlatform } from './BabelToolchain/BabelCompiler'
 import { LscBabelPluginTool, wrapLscPlugin } from './BabelToolchain/LscCompiler'
 import { LscToolchain, lscToolchains } from './BabelToolchain/LscToolchain'
+import { LscBabelPresetTool, wrapLscPreset } from './BabelToolchain/LscPreset'
 
 export default {
   BabelCompilerTool
@@ -9,4 +10,5 @@ export default {
   wrapLscPlugin
   LscToolchain
   lscToolchains
+  LscBabelPresetTool, wrapLscPreset
 }

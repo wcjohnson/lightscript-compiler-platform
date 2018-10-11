@@ -1,0 +1,60 @@
+// Configurable lsc preset tool
+import { BabelCompileActionType } from './BabelCompiler'
+import { Tool } from '../Tool'
+import type { ToolMetadata } from '../Types'
+
+export class LscBabelPresetTool extends Tool:
+  // Lsc babel plugin
+  lscPlugin = null
+  // Lsc semver
+  lscVersion = "unknown"
+  // Lsc config options
+  jsonOpts = '{}'
+  opts = {}
+
+  getMetadata(): ToolMetadata -/> {
+    name: `LightScript Preset: v${this.lscVersion}`
+    types: {
+      input: BabelCompileActionType
+      output: BabelCompileActionType
+    }
+    hasChildren: false
+    possibleOptions: {
+      options: {
+        description: "LightScript preset options (JSON)"
+        valueType: "string"
+        defaultValue: '{}'
+      }
+    }
+    ui: {
+      // Don't live-update plugin options as user types here.
+      // We don't want to trigger a bunch of invalid module load requests
+      // while the user is typing in the plugin name.
+      noLiveUpdates: true
+    }
+  }
+
+  describe(includeMetadata: boolean = false) -/>
+    v = if includeMetadata: <- this.getMetadata()
+    {
+      source: this.source
+      ...if includeMetadata: { _metadata: v }
+      options: { options: this.jsonOpts }
+    }
+
+  setOptions(opts = {}) -/>
+    this.jsonOpts = opts.options
+    this.opts = JSON.parse(this.jsonOpts or '{}')
+
+  apply(inputAction) -/>
+    inputAction.addPreset(this.lscPlugin, this.opts)
+    inputAction
+
+  dispose(): void ->
+    this.lscPlugin = null
+
+// Dependency injection from external module
+export wrapLscPreset({preset, version}) ->
+  return class RealLscPresetTool extends LscBabelPresetTool:
+    lscPlugin = preset
+    lscVersion = version
