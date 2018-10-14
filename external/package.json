@@ -3,28 +3,31 @@
   "private": true,
   "scripts": {
     "clean": "rimraf output",
+    "mkdir": "mkdirp output",
     "build": "rollup -c",
     "build:ancient": "BUILD_TARGET=WrapAncientLscPlugin webpack",
     "build:3x": "BUILD_TARGET=Wrap3xLscPlugin webpack",
-    "build:modern": "BUILD_TARGET=WrapModernLscPlugin NEEDS_DESTRUCTURING=1 rollup -c"
+    "build:modern": "BUILD_TARGET=WrapModernLscPlugin webpack",
+    "build:plugin": "BUILD_TARGET=pluginToolCjs webpack",
+    "build:preset": "BUILD_TARGET=presetToolCjs webpack",
+    "build:webpacked-npm": "run-p build:plugin build:preset build:pjson",
+    "build:pjson": "node ./makePkgJson.js",
+    "webpacked-npm": "run-s clean mkdir build:webpacked-npm"
   },
   "dependencies": {
     "@babel/core": "7.1.2",
     "@babel/plugin-transform-destructuring": "7.1.2",
     "@babel/standalone": "7.1.0",
-    "@lightscript/transform": "4.0.0-alpha.20",
-    "@lightscript/babel-preset": "4.0.0-alpha.20",
+    "@lightscript/transform": "4.0.0-alpha.23",
+    "@lightscript/babel-preset": "4.0.0-alpha.23",
     "@babel/preset-env": "7.1.0",
     "@oigroup/babel-plugin-lightscript": "1.1.0",
     "babel-plugin-lightscript": "0.5.9",
     "babel-standalone": "6.26.0",
-    "rollup": "^0.66.2",
-    "rollup-plugin-commonjs": "^9.1.8",
-    "rollup-plugin-ignore": "^1.0.3",
-    "rollup-plugin-json": "^3.1.0",
-    "rollup-plugin-node-resolve": "^3.4.0",
-    "rollup-plugin-terser": "^3.0.0",
     "webpack": "^4.20.2",
-    "webpack-cli": "^3.1.2"
+    "webpack-cli": "^3.1.2",
+    "rimraf": "^2.6.2",
+    "mkdirp": "^0.5.1",
+    "npm-run-all": "^4.1.3"
   }
 }

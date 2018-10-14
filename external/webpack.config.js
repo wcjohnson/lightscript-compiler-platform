@@ -1,7 +1,6 @@
 const path = require('path');
 
 var target = process.env.BUILD_TARGET
-var needsDestructuring = process.env.NEEDS_DESTRUCTURING
 var noMinify = process.env.NO_MINIFY
 
 module.exports = {
