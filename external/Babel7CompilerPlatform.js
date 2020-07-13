@@ -1,6 +1,4 @@
-import standalone from '@babel/standalone';
-
-var { version, transform, transformFromAst, availablePlugins, availablePresets, registerPlugins, registerPresets } = standalone;
+import { version, transform, transformFromAst, availablePlugins, availablePresets, registerPlugins, registerPresets } from '@babel/standalone';
 
 export function getToolImplementation(api) {
   return api.makeCompilerPlatform({
