@@ -3,7 +3,7 @@ const path = require('path');
 var target = process.env.BUILD_TARGET
 var noMinify = process.env.NO_MINIFY
 
-module.exports = {
+const config = {
   entry: `./${target}.js`,
   node: {
     fs: 'empty'
@@ -14,3 +14,11 @@ module.exports = {
     libraryTarget: 'commonjs2'
   }
 }
+
+if (noMinify) {
+  config.optimization = {
+    minimize: false
+  }
+}
+
+module.exports = config
