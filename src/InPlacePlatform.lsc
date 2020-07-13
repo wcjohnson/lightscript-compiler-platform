@@ -13,12 +13,12 @@ toolClassMappers = {
   indirect: -> Promise.resolve(IndirectTool)
   remote: (opts) -/>
     url = opts.url
-    if opts.format:
-      SystemJS.config({
-        meta: {
-          [url]: { format: opts.format }
-        }
-      })
+    format = opts.format or 'cjs'
+    SystemJS.config({
+      meta: {
+        [url]: { format }
+      }
+    })
     mod <- SystemJS.import(url)
     mod.getToolImplementation(toolAPI)
 }
