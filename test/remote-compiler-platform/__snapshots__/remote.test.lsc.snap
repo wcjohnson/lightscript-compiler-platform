@@ -215,7 +215,7 @@ Object {
           "valueType": "boolean",
         },
         "version": Object {
-          "defaultValue": "4.0.0-alpha.13",
+          "defaultValue": "4.0.0-alpha.28",
           "description": "Compiler version",
           "options": Array [
             "0.5.9",
@@ -228,6 +228,10 @@ Object {
             "3.1.1",
             "4.0.0-alpha.12",
             "4.0.0-alpha.13",
+            "4.0.0-alpha.21",
+            "4.0.0-alpha.22",
+            "4.0.0-alpha.23",
+            "4.0.0-alpha.28",
           ],
           "valueType": "options",
         },
@@ -238,7 +242,7 @@ Object {
         Object {
           "_metadata": Object {
             "hasChildren": false,
-            "name": "Babel Compiler Platform: v7.0.0",
+            "name": "Babel Compiler Platform: v7.10.4",
             "possibleOptions": Object {},
             "types": Object {
               "input": Object {
@@ -251,13 +255,13 @@ Object {
           },
           "source": Object {
             "type": "remote",
-            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.min.js",
+            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/platform/babel-7.10.4.min.js",
           },
         },
         Object {
           "_metadata": Object {
             "hasChildren": false,
-            "name": "LightScript Compiler Plugin: v4.0.0-alpha.13",
+            "name": "LightScript Compiler Plugin: v4.0.0-alpha.28",
             "possibleOptions": Object {
               "_decoratorParsing": Object {
                 "defaultValue": "legacy",
@@ -293,6 +297,7 @@ Object {
                 "valueType": "boolean",
               },
               "placeholder": Object {
+                "defaultValue": "_",
                 "description": "Specify an identifier to be transformed into PlaceholderExpression.",
                 "valueType": "string",
               },
@@ -320,7 +325,7 @@ Object {
           "options": Object {},
           "source": Object {
             "type": "remote",
-            "url": "https://wcjohnson.github.io/lightscript-compiler/modules/compiler/4.0.0-alpha.13.min.js",
+            "url": "https://unpkg.com/@lightscript/webpacked@4.0.0-alpha.28/pluginToolCjs.js",
           },
         },
       ],
