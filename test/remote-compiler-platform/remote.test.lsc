@@ -1,5 +1,7 @@
 import { InPlacePlatform } from '../..'
 
+jest.setTimeout(100000000)
+
 test! "load remote compiler platform", -/>
   p = new InPlacePlatform()
   t <- p.createTool({
