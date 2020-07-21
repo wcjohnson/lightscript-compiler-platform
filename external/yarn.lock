@@ -840,10 +840,10 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@lightscript/babel-preset@4.0.0-alpha.28":
-  version "4.0.0-alpha.28"
-  resolved "https://registry.yarnpkg.com/@lightscript/babel-preset/-/babel-preset-4.0.0-alpha.28.tgz#fdd9cd64fc10dab074cbbed7368568a55175cec0"
-  integrity sha512-rRCNLKvm/qxrm6RmxWlqaTWFZdxQf5GLH3iDFaJ1yde3wySjwqPMAjIGnjF7Va8Gz9X8Lyt8zCyGMROcfcQf2w==
+"@lightscript/babel-preset@4.0.0-alpha.30":
+  version "4.0.0-alpha.30"
+  resolved "https://registry.yarnpkg.com/@lightscript/babel-preset/-/babel-preset-4.0.0-alpha.30.tgz#6f3ca9dd19241119ac85e79165e8d6acb74307e3"
+  integrity sha512-EluBXDKgm+QuiVjPwH8oh5Xcz3PgFHj8J0hAE38UphBxdBA6HmTOQ4GAEy/HmF9cge5FaNNBwJfTgAD9YLBxng==
   dependencies:
     "@babel/helper-plugin-utils" "^7.10.4"
     "@babel/plugin-proposal-class-properties" "^7.10.4"
@@ -853,23 +853,23 @@
     "@babel/plugin-proposal-throw-expressions" "^7.10.4"
     "@babel/plugin-transform-destructuring" "^7.10.4"
     "@babel/plugin-transform-flow-strip-types" "^7.10.4"
-    "@lightscript/transform" "4.0.0-alpha.28"
+    "@lightscript/transform" "4.0.0-alpha.30"
 
-"@lightscript/parser@4.0.0-alpha.28":
-  version "4.0.0-alpha.28"
-  resolved "https://registry.yarnpkg.com/@lightscript/parser/-/parser-4.0.0-alpha.28.tgz#0a7c73ea4934df7d2a5e24cbbe8d3949498d5bcc"
-  integrity sha512-XH5ZIh25wboaWUFoAV3Xfrwf7AdFTYPJcaT7yFB1JTnaIpwADq/PvW6hSRjs1TwcfWVC91oMyfAXbyd3ozuIYA==
+"@lightscript/parser@4.0.0-alpha.30":
+  version "4.0.0-alpha.30"
+  resolved "https://registry.yarnpkg.com/@lightscript/parser/-/parser-4.0.0-alpha.30.tgz#c9749b5b61e4c971ddf162039e6062a5883248c4"
+  integrity sha512-+sjUUz8lTZaGpz9RBqOCNwptoL24MR+arD7kQR+hWcYOYCsHTVhJMqi1vlUhgpWqbROpHmX5eCxCYf9QMmyASA==
 
-"@lightscript/transform@4.0.0-alpha.28":
-  version "4.0.0-alpha.28"
-  resolved "https://registry.yarnpkg.com/@lightscript/transform/-/transform-4.0.0-alpha.28.tgz#3e6c017c4e046ab162d7886e0dc0743733e77a56"
-  integrity sha512-1+st0elxBei7Spugc1IDq/6dU7hq0jpWDn5vPu7SuwqdVjoDCQyF942S8lcHIYTRxJYbWiCDuer2ue71cgk7OQ==
+"@lightscript/transform@4.0.0-alpha.30":
+  version "4.0.0-alpha.30"
+  resolved "https://registry.yarnpkg.com/@lightscript/transform/-/transform-4.0.0-alpha.30.tgz#a939244e448cb9d0638510c071870a6a74c185a0"
+  integrity sha512-2oNMdCDXiVX9aXMK8OoP2P5u7rLzBcaBHZDrZPj5/lHfz3Oluis8MNXpAuKLMI2V7254RENFdUy6QCMrU3bVHg==
   dependencies:
     "@babel/types" "^7.10.4"
-    "@lightscript/parser" "4.0.0-alpha.28"
+    "@lightscript/parser" "4.0.0-alpha.30"
     "@oigroup/lightscript-runtime" "^0.1.1"
     ast-loc-utils "^1.1.0"
-    find-babel-config "^1.1.0"
+    find-babel-config "^1.2.0"
 
 "@oigroup/babel-plugin-lightscript@1.1.0":
   version "1.1.0"
@@ -1986,7 +1986,7 @@ fill-range@^7.0.1:
   dependencies:
     to-regex-range "^5.0.1"
 
-find-babel-config@^1.1.0:
+find-babel-config@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/find-babel-config/-/find-babel-config-1.2.0.tgz#a9b7b317eb5b9860cda9d54740a8c8337a2283a2"
   integrity sha512-jB2CHJeqy6a820ssiqwrKMeyC6nNdmrcgkKWJWmpoxpE8RKciYJXCcXRq1h2AzCo5I5BJeN2tkGEO3hLTuePRA==
